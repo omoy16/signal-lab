@@ -15,7 +15,12 @@ class ChartData:
     lows: np.ndarray | None = None
     volumes: np.ndarray | None = None
 
-
+    """ 進捗状況
+        calculate_rsi(): OK 2026-04-19
+        find_rsi_cross_under(): OK 2026-04-19
+        - runner: OK 2026-04-19
+        - tests: OK 2026-04-19
+    """
 def calculate_rsi(
     closes: np.ndarray | pd.Series,
     period: int = 14,
@@ -64,8 +69,6 @@ def calculate_rsi(
     rsi.loc[(avg_loss == 0) & (avg_gain == 0)] = 50
 
     return rsi
-
-
 
 
 def find_rsi_cross_under(
