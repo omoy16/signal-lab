@@ -1,0 +1,37 @@
+{
+    "workbench.editor.enablePreview": true,
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "workbench.list.openMode": "singleClick",
+    "files.exclude": {
+        // \venv_20260214\Scripts\Activate.ps1を除いて、venv_20260214配下をエクスプローラーに表示させない設定を実装してください
+        "venv_20260214/Scripts/Activate.ps1": false,
+        "venv_20260214/etc/**": true,
+        "venv_20260214/Lib/**": true,
+        "venv_20260214/Include/**": true,
+        "venv_20260214/share/**": true,
+        "venv_20260214/Scripts/**.exe": true,
+        //__pycache__ディレクトリをエクスプローラーに表示させない
+        "**/__pycache__/**": true
+    },
+    // 全体的なUIを小さくする
+    "window.zoomLevel": -1.2,
+    // Python ファイル用の設定
+    "[python]": {
+        // VS Code のフォーマッターとして Black Formatter 拡張を使う
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        // ファイル保存時に自動でフォーマットする
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+    },
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+}
