@@ -25,6 +25,14 @@ class ChartData:
 
 
 def _prepare_df(chart: ChartData) -> pd.DataFrame:
+    """チャートデータを前処理して返す
+
+    Args:
+        chart (ChartData): チャートデータ
+
+    Returns:
+        pd.DataFrame: 前処理後のデータフレーム
+    """
     df = chart.df.copy()
     if "Date" in df.columns:
         df["Date"] = pd.to_datetime(df["Date"])
@@ -50,6 +58,17 @@ def _safe_get(df: Optional[pd.DataFrame], idx: Optional[int], col: str):
 def _calculate_indicators(
     df: pd.DataFrame, bb_period: int = 25, rsi_period: int = 14
 ) -> pd.DataFrame:
+    """テクニカル指標を計算してデータフレームに追加する
+
+    Args:
+        df (pd.DataFrame): チャートデータ
+        bb_period (int, optional): ボリンジャーバンドの期間. Defaults to 25.
+        rsi_period (int, optional): RSIの期間. Defaults to 14.
+
+
+    Returns:
+        pd.DataFrame: テクニカル指標を追加したデータフレーム
+    """
     close = df["Close"].values.astype(float)
     volume = df["Volume"].values.astype(float)
 
