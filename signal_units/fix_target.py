@@ -132,6 +132,23 @@ def find_lower_shadow_points(
 
     return df.index[long_shadow.fillna(False)].tolist()
 
+def calculate_Avg_Volume(
+    volumes: np.ndarray | pd.Series,
+    period: int = 20,
+) -> pd.Series:
+    """
+    出来高データから
+    period日平均出来高を計算して返す
+    """
+    
+    volume = pd.Series(volumes, dtype=float)
+    
+    Avg_Volume = volume.rolling(
+        window=period,
+        min_periods=period,
+    ).mean()
+    
+    return Avg_Volume
 
 def find_volume_spike_points(
     df: pd.DataFrame,
