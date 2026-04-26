@@ -21,6 +21,8 @@ class ChartData:
         - runner: OK 2026-04-19
         - tests: OK 2026-04-19
     """
+
+
 def calculate_rsi(
     closes: np.ndarray | pd.Series,
     period: int = 14,
@@ -132,6 +134,7 @@ def find_lower_shadow_points(
 
     return df.index[long_shadow.fillna(False)].tolist()
 
+
 def calculate_Avg_Volume(
     volumes: np.ndarray | pd.Series,
     period: int = 20,
@@ -140,15 +143,16 @@ def calculate_Avg_Volume(
     出来高データから
     period日平均出来高を計算して返す
     """
-    
+
     volume = pd.Series(volumes, dtype=float)
-    
+
     Avg_Volume = volume.rolling(
         window=period,
         min_periods=period,
     ).mean()
-    
+
     return Avg_Volume
+
 
 def find_volume_spike_points(
     df: pd.DataFrame,
@@ -166,6 +170,37 @@ def find_volume_spike_points(
     )
 
     return df.index[spike.fillna(False)].tolist()
+
+
+def calculate_BB_Upper_3sigma(
+    closes: np.ndarray | pd.Series,
+    period: int = 20,
+) -> pd.Series:
+    """
+    終値データから
+    ボリンジャーバンド +3σ ラインを計算して返す
+
+    手順:
+      1. period日 SMA を中心線として計算
+      2. period日標準偏差を計算
+      3. 中心線 + 標準偏差 * 3 を返す
+    """
+
+    close = pd.Series(closes, dtype=float)
+
+    middle = close.rolling(
+        window=period,
+        min_periods=period,
+    ).mean()
+
+    std = close.rolling(
+        window=period,
+        min_periods=period,
+    ).std(ddof=1)
+
+    BB_Upper_3sigma = middle + (std * 3)
+
+    return BB_Upper_3sigma
 
 
 def find_upper_band_exit_points(
